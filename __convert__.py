@@ -83,7 +83,8 @@ def convert( model):
             out = net(image.to(device), args.upsample_align).cpu()
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
-
+        # 변환 이미지 저장
         out.save(os.path.join(args.output_dir, image_name))
         print(f"image saved: {image_name}")
+    print("변환 완료")
     return 0
