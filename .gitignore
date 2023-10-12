@@ -1,0 +1,4 @@
+/static/inputs/*.*
+/static/outputs/*.*
+/static/original/*.*
+/__pycache__
