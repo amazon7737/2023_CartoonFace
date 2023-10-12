@@ -63,7 +63,10 @@ async def convert_img():
     # 임시 이미지 복사
     shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
     # 변환 및 변환 이미지 저장
-    __convert__.convert(theme)
+    try:
+        __convert__.convert(theme)
+    except:
+        return redirect(url_for("main"))
     # 임시 폴더 비우기
     for file in os.scandir("./static/inputs"):
         os.remove(file)

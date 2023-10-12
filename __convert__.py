@@ -46,7 +46,8 @@ def convert( model):
         '--device',
         type=str,
         # default='cuda:0',
-        default='cpu',
+        default='mps',
+        # default='cpu',
     )
     # 이미지 해상도 업샘플링 설정
     parser.add_argument(
