@@ -8,6 +8,9 @@ import shutil
 
 app = Flask(__name__)
 
+original_arr = []
+theme_arr = []
+trans_arr = []
 
 # get , post
 @app.route("/", methods = ["GET", "POST"])
@@ -19,15 +22,25 @@ def upload_file():
         pre_name = request.form['pre_name']
         upload_img = 0
         print(type)
+        theme_arr.append(type)
+        # original
         try:
             upload_img = request.files['file']
-            upload_img.save('./static/image/' + secure_filename(request.files['file'].filename))
+
+            upload_img.save('./static/original/' + secure_filename(request.files['file'].filename))
+            original_arr.append()
+
         except:
             upload_img = (str(pre_name))
+        # 원본 X    
         upload_img_name = str(request.files['file'].filename)
-        upload_img_url = "./static/image/"+upload_img_name
+        upload_img_url = "./static/original/"+upload_img_name
         translate(upload_img, type)
-        convert_img_url = "./static/result/"+upload_img_name
+
+        convert_img_url = "./static/trans/"+upload_img_name
+        print("!!!",theme_arr)
+        print("!!!",original_arr)
+        print("!!!",trans_arr)
         return render_template("index.html",  original_name = upload_img_url, convert_name = convert_img_url)
 
 # 변환
@@ -39,7 +52,10 @@ def translate(upload_img, type):
 
     img = Image.open(upload_img).convert("RGB")
     out = face2paint(model, img)
-    out.save('./static/result/' + secure_filename(request.files['file'].filename))
+
+    # 변환
+    out.save('./static/trans/' + secure_filename(request.files['file'].filename))
+    trans_arr.append(secure_filename(request.files['file'].filename))
 
 
 if __name__ == '__main__':
