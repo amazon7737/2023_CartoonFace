@@ -1,25 +1,26 @@
 <html>
-<body>
+    <body>
+        <form
+            action="http://192.168.96.105:3001/"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <input type="file" name="file" />
+            <input type="submit" value="업로드" />
+            <input type="hidden" value="{{original_name}}" name="pre_name" />
 
-    <form action = "http://192.168.0.12:5001/" method="post" enctype="multipart/form-data">
-        <input type = "file" name = "file"/>
-        <input type = "submit" value = "업로드" />
-        <input type = "hidden" value = "{{original_name}}" name = "pre_name"/>
+            <select name="type">
+                <option value="face_paint_512_v1" selected>v1</option>
+                <option value="face_paint_512_v2">v2</option>
+                <option value="celeba_distill">celeba_distill</option>
+                <option value="paprika">paprika</option>
+            </select>
+        </form>
 
-        <select name = "type">
-            <option value="face_paint_512_v1" selected>v1</option>
-            <option value="face_paint_512_v2">v2</option>
-            <option value="celeba_distill">celeba_distill</option>
-            <option value="paprika">paprika</option>
-        </select>
-    </form>
-    
-    <h1>{{ name }}</h1>
+        <h1>{{ name }}</h1>
 
-    <img class="upload_img" id="upload_img" src="{{original_name}}">
+        <img class="upload_img" id="upload_img" src="{{original_name}}" />
 
-    <img class="upload_img" id="upload_img" src="{{convert_name}}">
-
-</body>
-
+        <img class="upload_img" id="upload_img" src="{{convert_name}}" />
+    </body>
 </html>
