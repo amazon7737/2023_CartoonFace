@@ -21,7 +21,7 @@ const Three = () => {
   const [Image, setImage] = useState("");
 
   // 선택된 사진리스트
-  const [SelectedList, setSelectedList] = useState([]);
+  const [SelectedList, setSelectedList] = useState([0, 0, 0, 0]);
 
   // 이미지 받기
   const ImagetoMe = async () => {
@@ -38,6 +38,7 @@ const Three = () => {
   // 함수 실행할때는 {} 를 꼭 붙여줘야 한다 -> destroy is not function
   useEffect(() => {
     ImagetoMe();
+    setImageList([]);
   }, []);
 
   // console.log("??", ImageList);
@@ -47,23 +48,27 @@ const Three = () => {
   let ImgData = ImageList.map((detail, index) => {
     return (
       <>
-        <button
-          className="buttonImg"
+        <img
+          className="img"
+          src={detail}
           onClick={() => {
-            selectFunction(detail);
+            setImage(detail);
           }}
-        >
-          <img className="img" src={detail} />
-        </button>
+        />
       </>
     );
   });
 
   // 선택된 사진들 배열에 추가
-  const selectFunction = (detail) => {
-    setImage(detail);
-    let tempList = [...SelectedList, Image];
-    setSelectedList(tempList);
+  const selectFunction = () => {
+    let tempList = [];
+    if (SelectedList.length == 4) {
+      let tempList = [...SelectedList.slice(1), Image];
+      setSelectedList(tempList);
+    } else {
+      let tempList = [...SelectedList, Image];
+      setSelectedList(tempList);
+    }
 
     // let tempList = [...ImageData];
     // console.log("@@@:", tempList);
@@ -72,16 +77,24 @@ const Three = () => {
 
   // 선택된 사진 뿌리기
   let SelectedData = SelectedList.map((detail, index) => {
-    return <img className="selectedImg" src={detail} />;
+    return (
+      <img className="selectedImg" src={detail} width="320px" height="320px" />
+    );
   });
+
+  useEffect(() => {
+    selectFunction(Image);
+  }, [Image]);
 
   return (
     <>
       <Header title={"사진 선택"} />
       <div className="container">
-        <div className="selected-container">{SelectedData}</div>
+        <div className="selected-container">
+          <div className="selImg">{SelectedData}</div>
+        </div>
         <div className="select-container">
-          <div className="img">{ImgData}</div>
+          <div className="wimg">{ImgData}</div>
         </div>
       </div>
       <div className="foot-container">
