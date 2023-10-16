@@ -5,22 +5,20 @@
 
 .wrap {
   display: flex;
-  width: 1080px;
-  height: 1920px;
-
-  flex-direction: row;
+  width: 100svw;
+  height: 100svh;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #c51130;
 }
 
 .first-container {
-  width: 95%;
-  height: 92%;
+  width: calc(100svw - 120px);
+  height: calc(100svh - 120px);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  padding-top: 100px;
   justify-content: center;
   align-items: center;
   border: 8px solid white;

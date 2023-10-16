@@ -55,14 +55,3 @@
 
 /* grid-column: 3/4;
   grid-row: 2/4; */
-
-.foot-container {
-  width: 1024px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #c51130;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}

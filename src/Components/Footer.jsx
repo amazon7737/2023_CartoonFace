@@ -4,9 +4,9 @@ import image from "./Images/logo.png";
 
 const Footer = () => {
   return (
-    <>
+    <div className="Foot-container">
       <img src={image} />
-    </>
+    </div>
   );
 };
 

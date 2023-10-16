@@ -4,6 +4,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./Styles/Second.css";
 
+/**
+ * 카메라버튼
+ * 3초뒤 촬영
+ */
+
 const Second = () => {
   const apiUrl = `/send`;
 
@@ -111,38 +116,17 @@ const Second = () => {
     }
   }, [count]);
 
+  // ㄹ리액트에서 저장  , 변환할때만 전송
+
   return (
     <>
       <div className="wrap2">
         <Header title={"사진 촬영"} count={count} />
-        <div className="camera" style={{ width: "1024px", height: "768px" }}>
-          <div
-            style={{
-              position: "absolute",
-              zIndex: "100",
-              width: "1024px",
-              backgroundColor: "white",
-            }}
-          >
-            <video
-              id="videoCam"
-              ref={videoRef}
-              autoPlay
-              style={{
-                display: CameraState,
-                borderRadius: "4px",
-                width: "1024px",
-                height: "768px",
-                webkitTransform: "rotateY(180deg)",
-              }}
-            />
+        <div className="camera">
+          <div>
+            <video id="videoCam" ref={videoRef} autoPlay />
 
-            <canvas
-              id="canvas"
-              width="1024px"
-              height="768px"
-              style={{ display: CanvasState }}
-            ></canvas>
+            <canvas id="canvas" width="1024px" height="768px"></canvas>
             {CanvasState === "none" ? (
               <div
                 onClick={screenShot}
@@ -196,9 +180,9 @@ const Second = () => {
             )}
           </div>
         </div>
-      </div>
-      <div className="foot-container">
-        <Footer />
+        <div className="foot-container">
+          <Footer />
+        </div>
       </div>
     </>
   );
