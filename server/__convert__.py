@@ -27,7 +27,7 @@ def convert( model):
     parser.add_argument(
         '--checkpoint',
         type=str,
-        default='./models/' + model,
+        default='./models/' + model + 'pt',
     )
     # 입력받은 이미지 저장 경로 설정
     parser.add_argument(

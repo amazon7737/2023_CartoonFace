@@ -4,6 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 1s;
+    animation-fill-mode: forwards;
 }
 
 #selectFilter .filterListWrap {
@@ -28,8 +30,6 @@
 }
 
 #selectFilter .filterListWrap .filterWrap.selected {
-    width: 340px;
-    height: 432px;
     border: 6px solid var(--COL-PRIMARY1);
 }
 

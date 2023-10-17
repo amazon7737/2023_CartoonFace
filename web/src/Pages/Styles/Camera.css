@@ -1,7 +1,35 @@
 #camera {
-    min-width: 100%;
-    min-height: 100%;
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
     background: var(--COL-BLACK);
+    animation: fadeIn 1s;
+    animation-fill-mode: forwards;
+}
+
+#lastPic {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 300px;
+    aspect-ratio: 1/1.4141;
+    object-fit: cover;
+    transform: rotateY(180deg);
+}
+
+#timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 160px;
+    font-weight: 700;
+    color: var(--COL-WHITE);
+    z-index: 100;
+    transform: translate(-50%, -50%);
 }

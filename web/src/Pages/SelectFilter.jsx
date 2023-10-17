@@ -1,16 +1,29 @@
+// 라이브러리
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./Styles/SelectFilter.css";
+// 컴포넌트
 import { NextStepBtn } from "../Components/Button";
+// 스타일시트
+import "./Styles/SelectFilter.css";
+// 이미지
 import ImgPlaceholder from "../Assets/Images/imgPlaceholder.png";
 import IconCheck from "../Assets/Images/check.png";
 
 const SelectFilter = () => {
+    // 리액트 기본 셋팅
     const navigate = useNavigate();
-    const nextStep = () => {
-        navigate("/step/5");
-    };
+    const dispatch = useDispatch();
+    // 선택 필터 번호 관리
     const [selected, setSelected] = useState(1);
+    // 다음 단계로 이동
+    const nextStep = () => {
+        dispatch({
+            type: "SET_SEL_FILTER",
+            payload: selected,
+        });
+        navigate("/convert");
+    };
     return (
         <>
             <div id="selectFilter">

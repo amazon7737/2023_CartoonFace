@@ -1,4 +1,4 @@
-#main {
+#convert {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,19 +13,20 @@
     animation-fill-mode: forwards;
 }
 
-#main .title {
+#convert .title {
     margin-bottom: 12px;
     font-size: 120px;
     font-weight: 700;
     color: var(--COL-WHITE);
 }
 
-#main .subTitle {
+#convert .subTitle {
     font-size: 48px;
     font-weight: 400;
     color: var(--COL-WHITE);
 }
 
-#main .languageWrap {}
-
-#main .buttonWrap {}
+#convert .buttonWrap {
+    position: fixed;
+    bottom: 220px
+}

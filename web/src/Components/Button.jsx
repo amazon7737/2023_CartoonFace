@@ -1,10 +1,16 @@
 import "./Styles/Button.css";
 
-const NextStepBtn = ({ text, func }) => {
+const NextStepBtn = ({ text, func, disable }) => {
     return (
-        <div className="nextStepBtn" onClick={func}>
-            {text}
-        </div>
+        <>
+            {disable ? (
+                <div className="nextStepBtn disable">{text}</div>
+            ) : (
+                <div className="nextStepBtn" onClick={func}>
+                    {text}
+                </div>
+            )}
+        </>
     );
 };
 
@@ -16,4 +22,8 @@ const ChangeBtn = ({ text, func }) => {
     );
 };
 
-export { NextStepBtn, ChangeBtn };
+const LargeBtn = ({ text }) => {
+    return <div className="largeBtn">{text}</div>;
+};
+
+export { NextStepBtn, ChangeBtn, LargeBtn };

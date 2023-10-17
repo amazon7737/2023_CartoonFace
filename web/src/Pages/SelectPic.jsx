@@ -1,57 +1,73 @@
+// 라이브러리
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./Styles/SelectPic.css";
+// 컴포넌트
 import { NextStepBtn } from "../Components/Button";
+// 스타일시트
+import "./Styles/SelectPic.css";
+// 이미지
 import ImgPlaceholder from "../Assets/Images/imgPlaceholder.png";
 import IconArrowLeft from "../Assets/Images/arrowLeft.png";
 import IconArrowRight from "../Assets/Images/arrowRight.png";
 
 const SelectPic = () => {
+    // 리액트 기본 셋팅
     const navigate = useNavigate();
-    const [pictures, setPictures] = useState([
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-    ]);
-    const [selectedPics, setSelectedPics] = useState([
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-        ImgPlaceholder,
-    ]);
+    const dispatch = useDispatch();
+    // 이전 페이지에서 촬영했던 사진 목록
+    const pictures = useSelector((state) => state.picList);
+    // 선택 사진 목록
+    const [selectedPics, setSelectedPics] = useState([]);
+    // 사진 목록 슬라이드
     const [currentIdx, setCurrentIdx] = useState(0);
+    // 다음 단계로 이동
     const nextStep = () => {
+        dispatch({
+            type: "SET_SEL_PIC_LIST",
+            payload: [...selectedPics],
+        });
         navigate("/step/3");
     };
+    // 이전 이미지 보기
     const prevImg = () => {
         if (currentIdx > 0) {
             setCurrentIdx(currentIdx - 1);
         }
     };
+    // 다음 이미지 보기
     const nextImg = () => {
         if (currentIdx < 7) {
             setCurrentIdx(currentIdx + 1);
         }
     };
+    // 사진 선택하기
+    const selectPic = (pic) => {
+        if (selectedPics.length >= 4) {
+            window.alert("사진은 4장까지 선택할 수 있습니다.");
+        } else {
+            setSelectedPics([...selectedPics, pic]);
+        }
+    };
+    // 사진 선택 취소하기
+    const deletePic = (idx) => {
+        const temp = selectedPics;
+        temp.splice(idx, 1);
+        setSelectedPics([...temp]);
+    };
+    // 사진 목록 슬라이드 제어
     useEffect(() => {
         const target = document.getElementById("target");
-        console.log(target.style.transform);
         target.style.transform = `translate(${-currentIdx * 229}px, 0px)`;
-        console.log(target.style.transform);
     }, [currentIdx]);
     return (
         <>
             <div id="selectPic">
                 <div className="selectedPicWrap">
-                    <SelectedPic imgList={selectedPics} />
+                    <SelectedPic picList={selectedPics} func={deletePic} />
                 </div>
                 <div className="listPicWrap">
-                    <ListPic imgList={pictures} />
+                    <ListPic picList={pictures} func={selectPic} />
                     <div className="slideBtn prev" onClick={prevImg}>
                         <img src={IconArrowLeft} alt="이전" srcset="" />
                     </div>
@@ -60,37 +76,71 @@ const SelectPic = () => {
                     </div>
                 </div>
             </div>
-            <NextStepBtn text={"사진 선택 완료"} func={nextStep} />
+            <NextStepBtn
+                text={"사진 선택 완료"}
+                func={nextStep}
+                disable={selectedPics.length >= 4 ? false : true}
+            />
         </>
     );
 };
 
-const SelectedPic = ({ imgList }) => {
+const SelectedPic = ({ picList, func }) => {
     return (
         <div className="selectedPic">
             <div className="row">
-                <img className="placeHolder" src={imgList[0]} alt="1번 사진" />
-                <img className="placeHolder" src={imgList[1]} alt="2번 사진" />
+                <img
+                    className="placeHolder"
+                    src={picList[0] === undefined ? ImgPlaceholder : picList[0]}
+                    onClick={() => {
+                        func(0);
+                    }}
+                    alt="1번 사진"
+                />
+                <img
+                    className="placeHolder"
+                    src={picList[1] === undefined ? ImgPlaceholder : picList[1]}
+                    onClick={() => {
+                        func(1);
+                    }}
+                    alt="2번 사진"
+                />
             </div>
             <div className="row">
-                <img className="placeHolder" src={imgList[0]} alt="3번 사진" />
-                <img className="placeHolder" src={imgList[1]} alt="4번 사진" />
+                <img
+                    className="placeHolder"
+                    src={picList[2] === undefined ? ImgPlaceholder : picList[2]}
+                    onClick={() => {
+                        func(2);
+                    }}
+                    alt="3번 사진"
+                />
+                <img
+                    className="placeHolder"
+                    src={picList[3] === undefined ? ImgPlaceholder : picList[3]}
+                    onClick={() => {
+                        func(3);
+                    }}
+                    alt="4번 사진"
+                />
             </div>
         </div>
     );
 };
 
-const ListPic = ({ imgList }) => {
+const ListPic = ({ picList, func }) => {
     return (
         <div id="target" className="listPic">
-            <img className="placeHolder" src={imgList[0]} alt="1번 사진" />
-            <img className="placeHolder" src={imgList[1]} alt="2번 사진" />
-            <img className="placeHolder" src={imgList[2]} alt="3번 사진" />
-            <img className="placeHolder" src={imgList[3]} alt="4번 사진" />
-            <img className="placeHolder" src={imgList[4]} alt="5번 사진" />
-            <img className="placeHolder" src={imgList[5]} alt="6번 사진" />
-            <img className="placeHolder" src={imgList[6]} alt="7번 사진" />
-            <img className="placeHolder" src={imgList[7]} alt="8번 사진" />
+            {picList.map((pic, idx) => (
+                <img
+                    className="placeHolder"
+                    src={pic}
+                    onClick={() => {
+                        func(pic);
+                    }}
+                    alt={`${idx + 1}번 사진`}
+                />
+            ))}
         </div>
     );
 };

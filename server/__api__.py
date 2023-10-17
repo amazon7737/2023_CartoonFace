@@ -47,64 +47,68 @@ async def toSend():
     global cnt
     # print("!!!", request.json)
     data = request.json
-    Imagedata = data['file']
-    print("!!!",Imagedata[22:])
+    print(data['theme'])
+    # Imagedata = data['file']
+    # print("!!!",Imagedata[22:])
 
-    # base64를 이미지로 변환 
-    imgdata = base64.b64decode(Imagedata[22:])
+    # # base64를 이미지로 변환 
+    # imgdata = base64.b64decode(Imagedata[22:])
 
-    image = Image.open(io.BytesIO(imgdata))
-    image = image.convert("RGB")
-    image.save("./static/original/" + str(cnt) + ".jpeg")
+    # image = Image.open(io.BytesIO(imgdata))
+    # image = image.convert("RGB")
+    # image.save("./static/original/" + str(cnt) + ".jpg")
 
-    cnt += 1 # 촬영횟수 증가
+    # cnt += 1 # 촬영횟수 증가
 
     # cnt 초기화
-    if cnt==9:
-        cnt=0
-        return "저장완료"
-    return str(cnt)+"저장완료"
+    # if cnt==9:
+    #     cnt=0
+    #     return "저장완료"
+    # return str(cnt)+"저장완료"
+    msg = {
+        "status": 0,
+        "msg": "",
+        "data": None
+    }
+    msg["status"] = 200
+    msg["msg"] = "image"
+    msg["data"] = data
+    return jsonify(msg)
 
 
 # 이미지 변환
 @app.route("/convert", methods = ["POST"])
 async def convert_img():
-
-
-    global pre_file_name
     global img_num
     global original_arr
     global output_arr
     get_recent_imgs()
     # 변수 초기화
+
+    data = request.json
+
     file_name = ""
     file_extension = ".jpg"
     theme = ""
+    upload_img_list = []
     upload_img = None
     temp_img = None
     input_img_path = ""
     output_img_path = ""
 
-    print("이전 이미지: ", pre_file_name)
     # 테마 설정
-    theme = request.form['theme']
-    # 파일 이름 설정 (ex : 타임스탬프.확장자)
-    file_name = str(math.floor(time()))
-    # 업로드 이미지 수신
-    print("!!!",files)
-    if request.files['file'].filename != '':
-        # [업로드 파일 있을 때]
-        upload_img = request.files['file']
-        # 이전 파일 이름 설정
-        pre_file_name = file_name + file_extension
-    else:
-        # [업로드 파일 없을 때]
-        upload_img = Image.open("./static/original/" + pre_file_name)
-        print("[이미지불러옴] : ", pre_file_name, upload_img)
-    # 원본 이미지 저장
-    upload_img.save('./static/original/' + file_name + file_extension)
-    # 임시 이미지 복사
-    shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
+    theme = data['theme']
+    upload_img_list = data['picList']
+    for img in upload_img_list:
+        # 파일 이름 설정 (ex : 타임스탬프.확장자)
+        file_name = str(math.floor(time()))
+        imgdata = base64.b64decode(img[22:])
+        image = Image.open(io.BytesIO(imgdata))
+        upload_img = image.convert("RGB")
+        # 원본 이미지 저장
+        upload_img.save('./static/original/' + file_name + file_extension)
+        # 임시 이미지 복사
+        shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
     # 변환 및 변환 이미지 저장
     try:
         __convert__.convert(theme)
@@ -116,8 +120,13 @@ async def convert_img():
     # 원본 및 변환 이미지 경로 설정
     input_img_path = "./static/original/" + file_name + file_extension
     output_img_path = "./static/outputs/" + file_name + file_extension
-    print("이전 이미지: ", pre_file_name)
-    return render_template("index.html", img_num = img_num, original_img_path = original_arr, convert_img_path = output_arr, original_name = input_img_path, convert_name = output_img_path)
+    # return render_template("index.html", img_num = img_num, original_img_path = original_arr, convert_img_path = output_arr, original_name = input_img_path, convert_name = output_img_path)
+    return jsonify({
+        "img_num": img_num, 
+        "original_img_path": original_arr, 
+        "convert_img_path": output_arr,
+        "original_name": input_img_path,
+        "convert_name": output_img_path})
 
 # 최근 이미지 경로 받아오기
 @app.route("/recent", methods = ["GET"])

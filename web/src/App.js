@@ -9,6 +9,7 @@ import SelectPic from "./Pages/SelectPic";
 import SelectBG from "./Pages/SelectBg";
 import SelectFilter from "./Pages/SelectFilter";
 import Print from "./Pages/Print";
+import Convert from "./Pages/Convert";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Main />} />
+                    <Route path="/convert" element={<Convert />} />
                     <Route element={<StepLayout />}>
                         <Route path="/step/1" element={<Camera />} />
                         <Route path="/step/2" element={<SelectPic />} />
