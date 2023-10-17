@@ -11,6 +11,7 @@ const initialState = {
     selPicList: [],
     selBg: 1,
     selFilter: 1,
+    convPicList: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -36,6 +37,9 @@ const rootReducer = (state = initialState, action) => {
             return temp;
         case "SET_LOADING_END":
             temp.isLoading = false;
+            return temp;
+        case "SET_CONV_PIC_LIST":
+            temp.convPicList = action.payload;
             return temp;
         default:
             return state;

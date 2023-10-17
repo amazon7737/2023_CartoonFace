@@ -41,50 +41,21 @@ def check_api():
     msg["msg"] = "서버가 정상적으로 동작중입니다."
     return jsonify(msg)
     
-# 리액트에서 오는 이미지 받기
-@app.route("/send", methods=["POST"])
-async def toSend():
-    global cnt
-    # print("!!!", request.json)
-    data = request.json
-    print(data['theme'])
-    # Imagedata = data['file']
-    # print("!!!",Imagedata[22:])
-
-    # # base64를 이미지로 변환 
-    # imgdata = base64.b64decode(Imagedata[22:])
-
-    # image = Image.open(io.BytesIO(imgdata))
-    # image = image.convert("RGB")
-    # image.save("./static/original/" + str(cnt) + ".jpg")
-
-    # cnt += 1 # 촬영횟수 증가
-
-    # cnt 초기화
-    # if cnt==9:
-    #     cnt=0
-    #     return "저장완료"
-    # return str(cnt)+"저장완료"
-    msg = {
-        "status": 0,
-        "msg": "",
-        "data": None
-    }
-    msg["status"] = 200
-    msg["msg"] = "image"
-    msg["data"] = data
-    return jsonify(msg)
-
-
 # 이미지 변환
 @app.route("/convert", methods = ["POST"])
 async def convert_img():
     global img_num
     global original_arr
     global output_arr
-    get_recent_imgs()
-    # 변수 초기화
+    # get_recent_imgs()
+    
+    msg = {
+        "status": 0,
+        "msg": "",
+        "data": None
+    }
 
+    # 변수 초기화
     data = request.json
 
     file_name = ""
@@ -93,40 +64,47 @@ async def convert_img():
     upload_img_list = []
     upload_img = None
     temp_img = None
-    input_img_path = ""
-    output_img_path = ""
+    input_img_name = []
+    output_img_path = []
 
     # 테마 설정
     theme = data['theme']
     upload_img_list = data['picList']
-    for img in upload_img_list:
-        # 파일 이름 설정 (ex : 타임스탬프.확장자)
-        file_name = str(math.floor(time()))
-        imgdata = base64.b64decode(img[22:])
-        image = Image.open(io.BytesIO(imgdata))
-        upload_img = image.convert("RGB")
-        # 원본 이미지 저장
-        upload_img.save('./static/original/' + file_name + file_extension)
-        # 임시 이미지 복사
-        shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
-    # 변환 및 변환 이미지 저장
-    try:
-        __convert__.convert(theme)
-    except:
-        return redirect(url_for("main"))
-    # 임시 폴더 비우기
-    for file in os.scandir("./static/inputs"):
-        os.remove(file)
-    # 원본 및 변환 이미지 경로 설정
-    input_img_path = "./static/original/" + file_name + file_extension
-    output_img_path = "./static/outputs/" + file_name + file_extension
-    # return render_template("index.html", img_num = img_num, original_img_path = original_arr, convert_img_path = output_arr, original_name = input_img_path, convert_name = output_img_path)
-    return jsonify({
-        "img_num": img_num, 
-        "original_img_path": original_arr, 
-        "convert_img_path": output_arr,
-        "original_name": input_img_path,
-        "convert_name": output_img_path})
+    print("사진(개) : ", len(upload_img_list))
+    if len(upload_img_list) == 0:
+        msg["status"] = 201
+        msg["msg"] = "업로드 사진 없음"
+        return jsonify(msg)
+    else:
+        for idx in range(0, len(upload_img_list)):
+            # 파일 이름 설정 (ex : 타임스탬프.확장자)
+            file_name = str(math.floor(time())) + "_" + str(idx)
+            input_img_name.append(file_name)
+            imgdata = base64.b64decode(upload_img_list[idx][22:])
+            image = Image.open(io.BytesIO(imgdata))
+            upload_img = image.convert("RGB")
+            # 원본 이미지 저장
+            upload_img.save('./static/original/' + file_name + file_extension)
+            # 임시 이미지 복사
+            shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
+        # 변환 및 변환 이미지 저장
+        try:
+            __convert__.convert(theme)
+        except:
+            msg["status"] = 202
+            msg["msg"] = "변환 모델 오류"
+            return jsonify(msg)
+        # 임시 폴더 비우기
+        for file in os.scandir("./static/inputs"):
+            os.remove(file)
+        # 원본 및 변환 이미지 경로 설정
+        for name in input_img_name:
+            output_img_path.append("/static/outputs/" + name + file_extension)
+        
+        msg["status"] = 200
+        msg["msg"] = "사진 변환 성공"
+        msg["data"] = output_img_path
+        return jsonify(msg)
 
 # 최근 이미지 경로 받아오기
 @app.route("/recent", methods = ["GET"])
