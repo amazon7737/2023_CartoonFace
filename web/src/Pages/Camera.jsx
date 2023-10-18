@@ -22,11 +22,18 @@ const Camera = () => {
     // 캡쳐 상태 관리
     const [isCapture, setIsCapture] = useState(false);
     // 잔여 횟수 관리 (초기값 : 8회)
-    const [remain, setReamin] = useState(4);
+    const [remain, setReamin] = useState(8);
     // 캡쳐 사진 목록
     const [picList, setPicList] = useState([]);
     // 캡쳐 사진
     const [pic, setPic] = useState();
+    // 페이지 제목 설정
+    useEffect(() => {
+        dispatch({
+            type: "SET_PAGE_NAME",
+            payload: "사진 촬영",
+        });
+    }, []);
     // 캡쳐된 사진 처리
     useEffect(() => {
         if (pic !== undefined) {
@@ -50,7 +57,7 @@ const Camera = () => {
             setTimeout(() => {
                 capture();
                 setIsCapture(false);
-            }, 100);
+            }, 3100);
         }
     }, [isCapture]);
 

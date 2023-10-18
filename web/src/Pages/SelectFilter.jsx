@@ -16,14 +16,29 @@ const SelectFilter = () => {
     const dispatch = useDispatch();
     // 선택 필터 번호 관리
     const [selected, setSelected] = useState(1);
+    // 필터 목록
+    const filterList = [
+        "face_paint_512_v1",
+        "face_paint_512_v2",
+        "celeba_distill",
+        "paprika",
+        "arcane",
+    ];
     // 다음 단계로 이동
     const nextStep = () => {
         dispatch({
             type: "SET_SEL_FILTER",
-            payload: selected,
+            payload: filterList[selected - 1],
         });
         navigate("/convert");
     };
+    // 페이지 제목 설정
+    useEffect(() => {
+        dispatch({
+            type: "SET_PAGE_NAME",
+            payload: "필터 선택",
+        });
+    }, []);
     return (
         <>
             <div id="selectFilter">

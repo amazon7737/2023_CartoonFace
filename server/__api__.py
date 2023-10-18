@@ -69,6 +69,7 @@ async def convert_img():
 
     # 테마 설정
     theme = data['theme']
+    print("THEME: ", theme)
     upload_img_list = data['picList']
     print("사진(개) : ", len(upload_img_list))
     if len(upload_img_list) == 0:
@@ -76,9 +77,10 @@ async def convert_img():
         msg["msg"] = "업로드 사진 없음"
         return jsonify(msg)
     else:
+        time_stamp = str(math.floor(time()))
         for idx in range(0, len(upload_img_list)):
             # 파일 이름 설정 (ex : 타임스탬프.확장자)
-            file_name = str(math.floor(time())) + "_" + str(idx)
+            file_name = time_stamp + "_" + str(idx)
             input_img_name.append(file_name)
             imgdata = base64.b64decode(upload_img_list[idx][22:])
             image = Image.open(io.BytesIO(imgdata))
@@ -141,6 +143,10 @@ async def reset_store():
         # 변환 폴더 비우기
         for file in os.scandir("./static/outputs"):
             os.remove(file)
+        for file in os.scandir("./static/samples"):
+            print(str(file).split("'")[1])
+            file_name = str(file).split("'")[1]
+            shutil.copyfile('./static/samples/' + file_name, './static/outputs/' + file_name)
         msg["status"] = 200
         msg["msg"] = "저장소 초기화 성공"
     except:

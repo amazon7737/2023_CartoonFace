@@ -12,6 +12,7 @@ const initialState = {
     selBg: 1,
     selFilter: 1,
     convPicList: [],
+    pageName: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -35,8 +36,8 @@ const rootReducer = (state = initialState, action) => {
         case "SET_SEL_FILTER":
             temp.selFilter = action.payload;
             return temp;
-        case "SET_LOADING_END":
-            temp.isLoading = false;
+        case "SET_PAGE_NAME":
+            temp.pageName = action.payload;
             return temp;
         case "SET_CONV_PIC_LIST":
             temp.convPicList = action.payload;

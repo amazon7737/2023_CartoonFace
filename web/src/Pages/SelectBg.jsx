@@ -9,6 +9,7 @@ import "./Styles/SelectBg.css";
 // 이미지
 import LogoOriginal from "../Assets/Images/logoOriginal.png";
 import LogoWhite from "../Assets/Images/logoWhite.png";
+import IconCheck from "../Assets/Images/check.png";
 
 const SelectBG = () => {
     // 리액트 기본 셋팅
@@ -26,6 +27,13 @@ const SelectBG = () => {
         });
         navigate("/step/4");
     };
+    // 페이지 제목 설정
+    useEffect(() => {
+        dispatch({
+            type: "SET_PAGE_NAME",
+            payload: "배경 선택",
+        });
+    }, []);
     return (
         <>
             <div id="selectBg">
@@ -42,6 +50,13 @@ const SelectBG = () => {
                             }}
                         >
                             <Frame type={1} picList={picList} />
+                            {selected === 1 ? (
+                                <div className="selectedIcon">
+                                    <img src={IconCheck} alt="" srcset="" />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         <div
                             className={
@@ -54,6 +69,13 @@ const SelectBG = () => {
                             }}
                         >
                             <Frame type={2} picList={picList} />
+                            {selected === 2 ? (
+                                <div className="selectedIcon">
+                                    <img src={IconCheck} alt="" srcset="" />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                     <div className="row">
@@ -68,6 +90,13 @@ const SelectBG = () => {
                             }}
                         >
                             <Frame type={3} picList={picList} />
+                            {selected === 3 ? (
+                                <div className="selectedIcon">
+                                    <img src={IconCheck} alt="" srcset="" />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 </div>

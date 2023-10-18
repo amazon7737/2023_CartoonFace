@@ -40,6 +40,19 @@
     border: 6px solid var(--COL-PRIMARY1);
 }
 
+.frameWrap .selectedIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: var(--COL-PRIMARY3);
+    border-radius: 20px;
+}
+
 .frame {
     display: flex;
     flex-direction: column;

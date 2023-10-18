@@ -28,4 +28,7 @@
 
 #main .languageWrap {}
 
-#main .buttonWrap {}
+#main .buttonWrap {
+    position: fixed;
+    bottom: 220px
+}

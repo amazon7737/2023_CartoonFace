@@ -55,6 +55,13 @@ const SelectPic = () => {
         temp.splice(idx, 1);
         setSelectedPics([...temp]);
     };
+    // 페이지 제목 설정
+    useEffect(() => {
+        dispatch({
+            type: "SET_PAGE_NAME",
+            payload: "사진 선택",
+        });
+    }, []);
     // 사진 목록 슬라이드 제어
     useEffect(() => {
         const target = document.getElementById("target");

@@ -1,17 +1,19 @@
+// 라이브러리
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Footer from "../Components/Footer";
+// 컴포넌트
 import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+// 스타일시트
 import "./Styles/Layout.css";
-import { useState } from "react";
 
 const StepLayout = () => {
-    const [title, setTitle] = useState("");
-    const [cnt, setCnt] = useState(-1);
+    const pageName = useSelector((state) => state.pageName);
     return (
         <div className="layout step">
-            <Header title={title} cnt={cnt} />
+            <Header title={pageName} />
             <div id="content">
-                <Outlet setTitle={setTitle} setCnt={setCnt} />
+                <Outlet />
             </div>
             <Footer />
         </div>

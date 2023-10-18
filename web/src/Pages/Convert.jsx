@@ -7,6 +7,7 @@ import axios from "axios";
 import { LargeBtn } from "../Components/Button";
 // 스타일시트
 import "./Styles/Convert.css";
+import Slide from "../Components/Slide";
 
 const Convert = () => {
     // 리액트 기본 셋팅
@@ -14,10 +15,12 @@ const Convert = () => {
     const dispatch = useDispatch();
     // 선택 사진 목록
     const picList = useSelector((state) => state.selPicList);
+    // 선택 필터
+    const filter = useSelector((state) => state.selFilter);
     // 사진 변환
     const sendPic = async () => {
         const response = await axios.post("/convert", {
-            theme: "face_paint_512_v1",
+            theme: filter,
             picList: [...picList],
         });
         console.log(response.data);
@@ -37,6 +40,7 @@ const Convert = () => {
     }, []);
     return (
         <div id="convert">
+            <Slide />
             <div className="title">이미지 변환중</div>
             <div className="subTitle">인공지능이 열심히 그리고 있어요.</div>
             <div className="buttonWrap">

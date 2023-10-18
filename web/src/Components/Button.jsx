@@ -26,4 +26,8 @@ const LargeBtn = ({ text }) => {
     return <div className="largeBtn">{text}</div>;
 };
 
-export { NextStepBtn, ChangeBtn, LargeBtn };
+const LargeBtn2 = ({ text }) => {
+    return <div className="largeBtn2">{text}</div>;
+};
+
+export { NextStepBtn, ChangeBtn, LargeBtn, LargeBtn2 };
