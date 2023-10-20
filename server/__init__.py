@@ -55,6 +55,7 @@ async def convert_img():
         # 이전 파일 이름 설정
         pre_file_name = file_name + file_extension
     else:
+
         # [업로드 파일 없을 때]
         upload_img = Image.open("./static/original/" + pre_file_name)
         print("[이미지불러옴] : ", pre_file_name, upload_img)

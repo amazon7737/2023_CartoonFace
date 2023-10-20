@@ -1,4 +1,5 @@
-/static/inputs/*.*
-/static/outputs/*.*
-/static/original/*.*
 /__pycache__
+/static/inputs/
+/static/original/
+/static/outpust/
+.DS_Store

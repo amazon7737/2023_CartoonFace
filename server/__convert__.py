@@ -20,14 +20,26 @@ def load_image(image_path, x32=False):
 
     return img
 
-def convert( model):
+def convert(model):
+    # 변환 이미지 이름 설정
+    model_name = 0
+    if model == "face_paint_512_v1":
+        model_name = 1
+    elif model == "face_paint_512_v2":
+        model_name = 2
+    elif model == "celeba_distill":
+        model_name = 3
+    elif model == "arcane":
+        model_name = 4
+    else:
+        model_name = 5
     # 변환 관련 설정
     parser = argparse.ArgumentParser()
     # 모델 설정
     parser.add_argument(
         '--checkpoint',
         type=str,
-        default='./models/' + model,
+        default='./models/' + model + '.pt',
     )
     # 입력받은 이미지 저장 경로 설정
     parser.add_argument(
@@ -73,6 +85,7 @@ def convert( model):
     
     os.makedirs(args.output_dir, exist_ok=True)
 
+    temp = ""
     for image_name in sorted(os.listdir(args.input_dir)):
         if os.path.splitext(image_name)[-1].lower() not in [".jpg", ".png", ".bmp", ".tiff"]:
             continue
@@ -85,7 +98,9 @@ def convert( model):
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
         # 변환 이미지 저장
+        image_name = image_name.split(".")[0] + str(model_name) + "." + image_name.split(".")[1]
         out.save(os.path.join(args.output_dir, image_name))
-        print(f"image saved: {image_name}")
-    print("변환 완료")
-    return 0
+        print("image saved:" + image_name)
+        temp = image_name
+    return temp
+ 

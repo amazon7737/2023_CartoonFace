@@ -1,0 +1,77 @@
+.nextStepBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 180px;
+    background: var(--COL-PRIMARY3);
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--COL-WHITE);
+    transition: background .3s;
+}
+
+.nextStepBtn.disable {
+    background: var(--COL-GRAY3);
+    font-weight: 500;
+    color: var(--COL-GRAY1);
+}
+
+.nextStepBtn:hover {
+    background: var(--COL-PRIMARY4);
+}
+
+.nextStepBtn.disable:hover {
+    background: var(--COL-GRAY3);
+}
+
+
+.changeBtn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    background: var(--COL-WHITE);
+    border: 1px solid var(--COL-GRAY3);
+    font-size: 52px;
+    font-weight: 500;
+    color: var(--COL-BLACK);
+    transition: background .3s;
+}
+
+.changeBtn:hover {
+    background: var(--COL-GRAY1);
+}
+
+.largeBtn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 640px;
+    height: 140px;
+    border: 4px solid var(--COL-WHITE);
+    font-size: 56px;
+    font-weight: 500;
+    color: var(--COL-WHITE);
+    transition: background .3s;
+}
+
+.largeBtn2 {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 640px;
+    height: 140px;
+    border: 4px solid var(--COL-WHITE);
+    font-size: 44px;
+    font-weight: 500;
+    color: var(--COL-WHITE);
+    transition: background .3s;
+}

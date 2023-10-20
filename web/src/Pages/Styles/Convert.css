@@ -1,0 +1,32 @@
+#convert {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+    min-width: calc(100% - 120px);
+    min-height: calc(100% - 120px);
+    width: calc(100% - 120px);
+    height: calc(100% - 120px);
+    border: 20px solid var(--COL-WHITE);
+    animation: fadeIn 1s;
+    animation-fill-mode: forwards;
+}
+
+#convert .title {
+    margin-bottom: 12px;
+    font-size: 120px;
+    font-weight: 700;
+    color: var(--COL-WHITE);
+}
+
+#convert .subTitle {
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--COL-WHITE);
+}
+
+#convert .buttonWrap {
+    position: fixed;
+    bottom: 220px
+}

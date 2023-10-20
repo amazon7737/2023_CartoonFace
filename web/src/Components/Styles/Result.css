@@ -1,0 +1,66 @@
+#print .resultWrap .result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    padding: 32px;
+    width: calc(100% - 64px);
+    height: calc(100% - 64px);
+    background: var(--COL-WHITE);
+}
+
+#print .resultWrap .result .imgWrap {
+    position: absolute;
+    width: 45%;
+    aspect-ratio: 1/1.3;
+    background: var(--COL-GRAY2);
+}
+
+#print .resultWrap .result .imgWrap:nth-child(1) {
+    top: 32px;
+    left: 32px;
+}
+
+#print .resultWrap .result .imgWrap:nth-child(2) {
+    top: 32px;
+    right: 32px;
+}
+
+#print .resultWrap .result .imgWrap:nth-child(3) {
+    top: px;
+    left: 32px;
+}
+
+#print .resultWrap .result .imgWrap:nth-child(4) {
+    top: 32px;
+    right: 32px;
+}
+
+#print .resultWrap .result .imgWrap .pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#print .resultWrap .result .logo {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#print .resultWrap .result.frame1 {
+    background: var(--COL-PRIMARY1);
+}
+
+#print .resultWrap .result.frame2 {
+    background: var(--COL-WHITE);
+}
+
+#print .resultWrap .result.frame3 {
+    height: 622px;
+    background: var(--COL-WHITE);
+    border-top: 6px solid var(--COL-PRIMARY1);
+}
