@@ -95,7 +95,7 @@ async def convert_img():
             output_img_name.append(__convert__.convert("face_paint_512_v1"))
             output_img_name.append(__convert__.convert("face_paint_512_v2"))
             output_img_name.append(__convert__.convert("celeba_distill"))
-            output_img_name.append(__convert__.convert("paprika"))
+            output_img_name.append(__convert__.convert("arcane"))
         except:
             msg["status"] = 202
             msg["msg"] = "변환 모델 오류"

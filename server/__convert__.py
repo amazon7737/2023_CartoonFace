@@ -29,7 +29,7 @@ def convert(model):
         model_name = 2
     elif model == "celeba_distill":
         model_name = 3
-    elif model == "paprika":
+    elif model == "arcane":
         model_name = 4
     else:
         model_name = 5
