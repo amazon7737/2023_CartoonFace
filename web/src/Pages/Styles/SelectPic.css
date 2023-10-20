@@ -27,11 +27,12 @@
 
 .selectedPic .placeHolder {
     height: 80%;
-    max-height: 80%;
+    max-height: 1000px;
     aspect-ratio: 1/1.414;
     object-fit: cover;
     background: var(--COL-GRAY2);
     border: 1px solid var(--COL-GRAY2);
+    object-fit: cover;
 }
 
 .listPicWrap {
