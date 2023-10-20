@@ -65,6 +65,7 @@ async def convert_img():
     upload_img = None
     temp_img = None
     input_img_name = []
+    output_img_name = []
     output_img_path = []
 
     # 테마 설정
@@ -91,7 +92,10 @@ async def convert_img():
             shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
         # 변환 및 변환 이미지 저장
         try:
-            __convert__.convert(theme)
+            output_img_name.append(__convert__.convert("face_paint_512_v1"))
+            output_img_name.append(__convert__.convert("face_paint_512_v2"))
+            output_img_name.append(__convert__.convert("celeba_distill"))
+            output_img_name.append(__convert__.convert("paprika"))
         except:
             msg["status"] = 202
             msg["msg"] = "변환 모델 오류"
@@ -100,8 +104,8 @@ async def convert_img():
         for file in os.scandir("./static/inputs"):
             os.remove(file)
         # 원본 및 변환 이미지 경로 설정
-        for name in input_img_name:
-            output_img_path.append("/static/outputs/" + name + file_extension)
+        for name in output_img_name:
+            output_img_path.append("/static/outputs/" + name)
         
         msg["status"] = 200
         msg["msg"] = "사진 변환 성공"

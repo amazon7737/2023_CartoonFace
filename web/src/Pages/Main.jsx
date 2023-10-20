@@ -13,8 +13,8 @@ const Main = () => {
     return (
         <div id="main" onClick={start}>
             <Slide />
-            <div className="title">프로젝트명</div>
-            <div className="subTitle">서브타이틀</div>
+            <div className="title">Cartoon Face</div>
+            <div className="subTitle">만화주인공같은 내얼굴</div>
             <div className="buttonWrap">
                 <LargeBtn text={"화면을 클릭해주세요."} />
             </div>

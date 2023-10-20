@@ -25,7 +25,7 @@ const SelectBG = () => {
             type: "SET_SEL_BG",
             payload: selected,
         });
-        navigate("/step/4");
+        navigate("/convert");
     };
     // 페이지 제목 설정
     useEffect(() => {
@@ -111,11 +111,11 @@ const Frame = ({ type, picList }) => {
         <div className={"frame frame" + type}>
             <div className="row2">
                 <img className="pic" src={picList[0]} alt="" srcset="" />
-                <img className="pic" src={picList[1]} alt="" srcset="" />
+                <img className="pic" src={picList[0]} alt="" srcset="" />
             </div>
             <div className="row2">
-                <img className="pic" src={picList[2]} alt="" srcset="" />
-                <img className="pic" src={picList[3]} alt="" srcset="" />
+                <img className="pic" src={picList[0]} alt="" srcset="" />
+                <img className="pic" src={picList[0]} alt="" srcset="" />
             </div>
             <img
                 className="logo"

@@ -22,7 +22,7 @@ const Camera = () => {
     // 캡쳐 상태 관리
     const [isCapture, setIsCapture] = useState(false);
     // 잔여 횟수 관리 (초기값 : 8회)
-    const [remain, setReamin] = useState(8);
+    const [remain, setReamin] = useState(1);
     // 캡쳐 사진 목록
     const [picList, setPicList] = useState([]);
     // 캡쳐 사진
@@ -57,7 +57,11 @@ const Camera = () => {
             setTimeout(() => {
                 capture();
                 setIsCapture(false);
-            }, 3100);
+            }, 5100);
+        } else {
+            if (remain > 1) {
+                setIsCapture(true);
+            }
         }
     }, [isCapture]);
 
@@ -91,7 +95,7 @@ const Camera = () => {
 };
 
 const Timer = () => {
-    const [time, setTime] = useState(3);
+    const [time, setTime] = useState(5);
     useEffect(() => {
         time > 0 && setTimeout(() => setTime(time - 1), 1000);
     }, [time]);

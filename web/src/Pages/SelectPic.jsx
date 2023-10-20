@@ -43,8 +43,8 @@ const SelectPic = () => {
     };
     // 사진 선택하기
     const selectPic = (pic) => {
-        if (selectedPics.length >= 4) {
-            window.alert("사진은 4장까지 선택할 수 있습니다.");
+        if (selectedPics.length >= 1) {
+            window.alert("사진은 1장만 선택할 수 있습니다.");
         } else {
             setSelectedPics([...selectedPics, pic]);
         }
@@ -86,7 +86,7 @@ const SelectPic = () => {
             <NextStepBtn
                 text={"사진 선택 완료"}
                 func={nextStep}
-                disable={selectedPics.length >= 4 ? false : true}
+                disable={selectedPics.length >= 1 ? false : true}
             />
         </>
     );
@@ -95,42 +95,14 @@ const SelectPic = () => {
 const SelectedPic = ({ picList, func }) => {
     return (
         <div className="selectedPic">
-            <div className="row">
-                <img
-                    className="placeHolder"
-                    src={picList[0] === undefined ? ImgPlaceholder : picList[0]}
-                    onClick={() => {
-                        func(0);
-                    }}
-                    alt="1번 사진"
-                />
-                <img
-                    className="placeHolder"
-                    src={picList[1] === undefined ? ImgPlaceholder : picList[1]}
-                    onClick={() => {
-                        func(1);
-                    }}
-                    alt="2번 사진"
-                />
-            </div>
-            <div className="row">
-                <img
-                    className="placeHolder"
-                    src={picList[2] === undefined ? ImgPlaceholder : picList[2]}
-                    onClick={() => {
-                        func(2);
-                    }}
-                    alt="3번 사진"
-                />
-                <img
-                    className="placeHolder"
-                    src={picList[3] === undefined ? ImgPlaceholder : picList[3]}
-                    onClick={() => {
-                        func(3);
-                    }}
-                    alt="4번 사진"
-                />
-            </div>
+            <img
+                className="placeHolder"
+                src={picList[0] === undefined ? ImgPlaceholder : picList[0]}
+                onClick={() => {
+                    func(0);
+                }}
+                alt="1번 사진"
+            />
         </div>
     );
 };
