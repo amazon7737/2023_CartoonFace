@@ -79,6 +79,9 @@ const Camera = () => {
 
                 {isCapture ? <Timer /> : <></>}
                 {pic ? <img id="lastPic" src={pic} alt="" srcset="" /> : <></>}
+                <div className="guide">
+                    <span>얼굴을 가이드에 맞춰주세요.</span>
+                </div>
             </div>
             <NextStepBtn
                 text={

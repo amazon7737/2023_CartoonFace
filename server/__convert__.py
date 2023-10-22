@@ -19,7 +19,10 @@ def load_image(image_path, x32=True):
         w, h = img.size
         img = img.crop((w/4*1, 0,w/4*3,h))
         w, h = img.size
-        img = img.resize((to_32s(w) // 2, to_32s(h) // 2))
+        if h >= 1080 :
+            img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
+        elif h >= 720 :
+            img = img.resize((to_32s(w) // 2, to_32s(h) // 2))
 
     return img
 
@@ -60,8 +63,8 @@ def convert(model, resize):
     parser.add_argument(
         '--device',
         type=str,
-        default='cuda:0',
-        # default='mps',
+        # default='cuda:0',
+        default='mps',
         # default='cpu',
     )
     # 이미지 해상도 업샘플링 설정
@@ -84,7 +87,7 @@ def convert(model, resize):
     if device == 'cuda:0' : torch.cuda.empty_cache()
     
     net = Generator()
-    net.load_state_dict(torch.load(args.checkpoint, map_location="cuda"))
+    net.load_state_dict(torch.load(args.checkpoint, map_location="cpu"))
     net.to(device).eval()
     print(f"model loaded: {args.checkpoint}")
     

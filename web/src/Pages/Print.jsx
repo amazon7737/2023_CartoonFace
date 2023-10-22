@@ -2,7 +2,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ReactToPrint from "react-to-print";
+import html2canvas from "html2canvas";
+import axios from "axios";
 // 컴포넌트
 import { ChangeBtn, NextStepBtn } from "../Components/Button";
 // 스타일시트
@@ -10,32 +11,30 @@ import "./Styles/Print.css";
 // 이미지
 import LogoOriginal from "../Assets/Images/logoOriginalLarge.png";
 import LogoWhite from "../Assets/Images/logoWhiteLarge.png";
-import html2canvas from "html2canvas";
 
 const Print = () => {
     // 리액트 기본 셋팅
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const ref = useRef();
     // 배경
     const type = useSelector((state) => state.selBg);
     // 변환 사진 목록
     const picList = useSelector((state) => state.convPicList);
     const printPhoto = () => {
-        const target = document.getElementById("target");
-        if (!target) {
-            return alert("결과 저장에 실패했습니다.");
-        }
-        html2canvas(target).then((canvas) => {
-            const link = document.createElement("a");
-            document.body.appendChild(link);
-            link.href = canvas.toDataURL("image/png");
-            link.download = "result.png";
-            link.click();
-            document.body.removeChild(link);
+        html2canvas(document.getElementById("target"), {
+            allowTaint: true,
+            useCORS: true,
+        }).then((canvas) => {
+            onSaveAs(canvas.toDataURL("imgae/png"));
         });
-        navigate("/fin");
     };
-    const ref = useRef();
+    const onSaveAs = async (uri) => {
+        const response = await axios.post(API + "/print", {
+            img: uri,
+        });
+        console.log(response);
+    };
     //API서버 주소
     const API = "http://127.0.0.1:3001";
     // 페이지 제목 설정
@@ -49,19 +48,21 @@ const Print = () => {
         <>
             <div id="print">
                 <div id="target" className="resultWrap">
-                    <div className={"result frame" + type} ref={ref}>
+                    <div className={"result frame" + type}>
                         <div className="row">
                             <img
                                 className="pic"
                                 src={API + picList[0]}
                                 alt="1번사진"
                                 srcset=""
+                                crossOrigin="anonymous"
                             />
                             <img
                                 className="pic"
                                 src={API + picList[1]}
                                 alt="2번사진"
                                 srcset=""
+                                crossOrigin="anonymous"
                             />
                         </div>
                         <div className="row">
@@ -70,12 +71,14 @@ const Print = () => {
                                 src={API + picList[2]}
                                 alt="3번사진"
                                 srcset=""
+                                crossOrigin="anonymous"
                             />
                             <img
                                 className="pic"
                                 src={API + picList[3]}
-                                alt="4번사진"
+                                alt=""
                                 srcset=""
+                                crossOrigin="anonymous"
                             />
                         </div>
                         <div className="logo">

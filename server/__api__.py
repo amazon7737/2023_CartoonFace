@@ -124,6 +124,27 @@ def convert_img():
         msg["data"] = output_img_path
         return jsonify(msg)
 
+# 프린트 이미지 받기 및 출력
+@app.route("/print", methods = ["POST"])
+def print_image():
+    msg = {
+        "status": 0,
+        "msg": "",
+        "data": None
+    }
+    data = request.json
+    image = data["img"]
+    time_stamp = str(math.floor(time()))
+    file_name = time_stamp
+    imgdata = base64.b64decode(image[22:])
+    image = Image.open(io.BytesIO(imgdata))
+    upload_img = image.convert("RGB")
+    # 원본 이미지 저장
+    upload_img.save('./static/results/' + file_name + ".png")
+    file_path = '/static/results/' + file_name + ".png"
+    os.startfile(file_path, "print")
+    return file_path
+
 # 최근 이미지 경로 받아오기
 @app.route("/recent", methods = ["GET"])
 def get_recent():
