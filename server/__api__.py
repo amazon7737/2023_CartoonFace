@@ -43,7 +43,7 @@ def check_api():
     
 # 이미지 변환
 @app.route("/convert", methods = ["POST"])
-async def convert_img():
+def convert_img():
     global img_num
     global original_arr
     global output_arr
@@ -114,7 +114,7 @@ async def convert_img():
 
 # 최근 이미지 경로 받아오기
 @app.route("/recent", methods = ["GET"])
-async def get_recent():
+def get_recent():
     msg = {
         "status": 0,
         "msg": "",
@@ -131,7 +131,7 @@ async def get_recent():
 
 # 저장소 초기화
 @app.route("/reset", methods = ["GET"])
-async def reset_store():
+def reset_store():
     msg = {
         "status": 0,
         "msg": "",
