@@ -1,5 +1,5 @@
 /__pycache__
-/static/inputs/
-/static/original/
-/static/outpust/
+/static/inputs/*.*
+/static/original/*.*
+/static/outputs/*.*
 .DS_Store

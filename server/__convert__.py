@@ -4,23 +4,26 @@ from PIL import Image
 import numpy as np
 import torch
 from torchvision.transforms.functional import to_tensor, to_pil_image
+from torch.cuda.amp import autocast, GradScaler
 from __model__ import Generator
 torch.backends.cudnn.enabled = False
 torch.backends.cudnn.benchmark = False
 torch.backends.cudnn.deterministic = True
 
-def load_image(image_path, x32=False):
+def load_image(image_path, x32=True):
     img = Image.open(image_path).convert("RGB")
 
     if x32:
         def to_32s(x):
             return 256 if x < 256 else x - x % 32
         w, h = img.size
-        img = img.resize((to_32s(w), to_32s(h)))
+        img = img.crop((w/4*1, 0,w/4*3,h))
+        w, h = img.size
+        img = img.resize((to_32s(w) // 2, to_32s(h) // 2))
 
     return img
 
-def convert(model):
+def convert(model, resize):
     # 변환 이미지 이름 설정
     model_name = 0
     if model == "face_paint_512_v1":
@@ -29,7 +32,7 @@ def convert(model):
         model_name = 2
     elif model == "celeba_distill":
         model_name = 3
-    elif model == "arcane":
+    elif model == "paprika":
         model_name = 4
     else:
         model_name = 5
@@ -77,9 +80,11 @@ def convert(model):
     args = parser.parse_args()
     # 변환 기능
     device = args.device
+
+    if device == 'cuda:0' : torch.cuda.empty_cache()
     
     net = Generator()
-    net.load_state_dict(torch.load(args.checkpoint, map_location="cpu"))
+    net.load_state_dict(torch.load(args.checkpoint, map_location="cuda"))
     net.to(device).eval()
     print(f"model loaded: {args.checkpoint}")
     
@@ -89,12 +94,12 @@ def convert(model):
     for image_name in sorted(os.listdir(args.input_dir)):
         if os.path.splitext(image_name)[-1].lower() not in [".jpg", ".png", ".bmp", ".tiff"]:
             continue
-            
-        image = load_image(os.path.join(args.input_dir, image_name), args.x32)
+        image = load_image(os.path.join(args.input_dir, image_name), resize)
 
         with torch.no_grad():
             image = to_tensor(image).unsqueeze(0) * 2 - 1
             out = net(image.to(device), args.upsample_align).cpu()
+            # out = net(image.to(device), args.upsample_align).cuda()
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
         # 변환 이미지 저장

@@ -92,17 +92,29 @@ def convert_img():
             shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
         # 변환 및 변환 이미지 저장
         try:
-            output_img_name.append(__convert__.convert("face_paint_512_v1"))
-            output_img_name.append(__convert__.convert("face_paint_512_v2"))
-            output_img_name.append(__convert__.convert("celeba_distill"))
-            output_img_name.append(__convert__.convert("arcane"))
+            output_img_name.append(__convert__.convert("face_paint_512_v1", True))
+            output_img_name.append(__convert__.convert("face_paint_512_v2", True))
+            print(output_img_name)
+             # 임시 폴더 비우기
+            for file in os.scandir("./static/inputs"):
+                os.remove(file)
+            shutil.copyfile('./static/outputs/' + output_img_name[0], './static/inputs/' + output_img_name[0])
+            output_img_name.append(__convert__.convert("face_paint_512_v2", False))
+            # 임시 폴더 비우기
+            for file in os.scandir("./static/inputs"):
+                os.remove(file)
+            shutil.copyfile('./static/outputs/' + output_img_name[1], './static/inputs/' + output_img_name[1])
+            output_img_name.append(__convert__.convert("face_paint_512_v1", False))
+            # 임시 폴더 비우기
+            for file in os.scandir("./static/inputs"):
+                os.remove(file)
+            # output_img_name.append(__convert__.convert("celeba_distill"))
+            # output_img_name.append(__convert__.convert("paprika"))
         except:
             msg["status"] = 202
             msg["msg"] = "변환 모델 오류"
             return jsonify(msg)
-        # 임시 폴더 비우기
-        for file in os.scandir("./static/inputs"):
-            os.remove(file)
+        
         # 원본 및 변환 이미지 경로 설정
         for name in output_img_name:
             output_img_path.append("/static/outputs/" + name)
