@@ -142,7 +142,7 @@ def print_image():
     # 원본 이미지 저장
     upload_img.save('./static/results/' + file_name + ".png")
     file_path = '/static/results/' + file_name + ".png"
-    os.startfile(file_path, "print")
+    os.startfile(os.getcwd() + file_path, "print")
     return file_path
 
 # 최근 이미지 경로 받아오기

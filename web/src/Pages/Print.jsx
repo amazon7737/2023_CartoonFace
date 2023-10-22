@@ -36,7 +36,7 @@ const Print = () => {
         console.log(response);
     };
     //API서버 주소
-    const API = "http://127.0.0.1:3001";
+    const API = "http://localhost:3001";
     // 페이지 제목 설정
     useEffect(() => {
         dispatch({
