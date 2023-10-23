@@ -22,7 +22,7 @@ const Camera = () => {
     // 캡쳐 상태 관리
     const [isCapture, setIsCapture] = useState(false);
     // 잔여 횟수 관리 (초기값 : 8회)
-    const [remain, setReamin] = useState(1);
+    const [remain, setReamin] = useState(4);
     // 캡쳐 사진 목록
     const [picList, setPicList] = useState([]);
     // 캡쳐 사진
