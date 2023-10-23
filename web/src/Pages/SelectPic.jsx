@@ -43,11 +43,7 @@ const SelectPic = () => {
     };
     // 사진 선택하기
     const selectPic = (pic) => {
-        if (selectedPics.length >= 1) {
-            window.alert("사진은 1장만 선택할 수 있습니다.");
-        } else {
-            setSelectedPics([...selectedPics, pic]);
-        }
+            setSelectedPics([pic]);
     };
     // 사진 선택 취소하기
     const deletePic = (idx) => {

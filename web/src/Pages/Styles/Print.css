@@ -12,6 +12,7 @@
     height: 80%;
     max-height: 1200px;
     aspect-ratio: 1/1.414;
+    background: var(--COL-WHITE);
     box-shadow: 0px 4px 32px #CCCCCC;
 }
 
@@ -60,7 +61,6 @@
 }
 
 #print .resultWrap .result.frame3 {
-    height: 622px;
     background: var(--COL-WHITE);
     border-top: 6px solid var(--COL-PRIMARY1);
 }

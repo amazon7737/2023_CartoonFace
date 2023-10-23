@@ -34,6 +34,7 @@ const Print = () => {
             img: uri,
         });
         console.log(response);
+        navigate("/fin")
     };
     //API서버 주소
     const API = "http://localhost:3001";
@@ -90,20 +91,6 @@ const Print = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="btnWrap">
-                <ChangeBtn
-                    text={"배경 변경"}
-                    func={() => {
-                        navigate("/step/3");
-                    }}
-                />
-                <ChangeBtn
-                    text={"필터 변경"}
-                    func={() => {
-                        navigate("/step/4");
-                    }}
-                />
             </div>
             <NextStepBtn text={"출력"} func={printPhoto} />
         </>
