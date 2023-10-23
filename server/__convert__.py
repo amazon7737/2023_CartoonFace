@@ -22,7 +22,7 @@ def load_image(image_path, x32=True):
         if h >= 1080 :
             img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
         elif h >= 720 :
-            img = img.resize((to_32s(w) // 2, to_32s(h) // 2))
+            img = img.resize((to_32s(w) // 1.2, to_32s(h) // 1.2))
 
     return img
 
