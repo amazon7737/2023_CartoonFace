@@ -2,4 +2,5 @@
 /static/inputs/*.*
 /static/original/*.*
 /static/outputs/*.*
+/static/results/*.*
 .DS_Store
