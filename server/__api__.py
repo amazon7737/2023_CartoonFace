@@ -38,7 +38,7 @@ def check_api():
         "data": None
     }
     msg["status"] = 200
-    msg["msg"] = "서버가 정상적으로 동작중입니다."
+    msg["msg"] = "Server is Running..."
     return jsonify(msg)
     
 # 이미지 변환
@@ -185,10 +185,10 @@ def reset_store():
             file_name = str(file).split("'")[1]
             shutil.copyfile('./static/samples/' + file_name, './static/outputs/' + file_name)
         msg["status"] = 200
-        msg["msg"] = "저장소 초기화 성공"
+        msg["msg"] = "Reset Storage Success"
     except:
         msg["status"] = 201
-        msg["msg"] = "저장소 초기화 실패"
+        msg["msg"] = "Reset Storage Fail"
     return jsonify(msg)
 
 def get_recent_imgs():
