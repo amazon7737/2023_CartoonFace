@@ -13,6 +13,8 @@ import LogoOriginal from "../Assets/Images/logoOriginalLarge.png";
 import LogoWhite from "../Assets/Images/logoWhiteLarge.png";
 
 const Print = () => {
+    //API서버 주소
+    const API = "http://localhost:3001";
     // 리액트 기본 셋팅
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -34,10 +36,8 @@ const Print = () => {
             img: uri,
         });
         console.log(response);
-        navigate("/fin")
+        navigate("/fin");
     };
-    //API서버 주소
-    const API = "http://localhost:3001";
     // 페이지 제목 설정
     useEffect(() => {
         dispatch({

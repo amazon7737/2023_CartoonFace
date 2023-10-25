@@ -10,6 +10,8 @@ import "./Styles/Convert.css";
 import Slide from "../Components/Slide";
 
 const Convert = () => {
+    //API서버 주소
+    const API = "http://localhost:3001";
     // 리액트 기본 셋팅
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const Convert = () => {
     const filter = useSelector((state) => state.selFilter);
     // 사진 변환
     const sendPic = async () => {
-        const response = await axios.post("/convert", {
+        const response = await axios.post(API + "/convert", {
             theme: filter,
             picList: [...picList],
         });

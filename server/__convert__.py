@@ -63,8 +63,8 @@ def convert(model, resize):
     parser.add_argument(
         '--device',
         type=str,
-        default='cuda:0',
-        # default='mps',
+        # default='cuda:0',
+        default='mps',
         # default='cpu',
     )
     # 이미지 해상도 업샘플링 설정

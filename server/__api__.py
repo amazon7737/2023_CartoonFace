@@ -16,8 +16,8 @@ import math
 import asyncio
 
 app = Flask(__name__)
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
-CORS(app, resources={r'*': {'origins': 'http://localhost:3000'}})
+CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app, resources={r'*': {'origins': 'http://127.0.0.1:3000'}})
 
 global pre_file_name
 global img_num

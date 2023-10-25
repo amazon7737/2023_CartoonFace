@@ -6,7 +6,7 @@ import "./Styles/Slide.css";
 
 const Slide = () => {
     //API서버 주소
-    const API = "http://127.0.0.1:3001";
+    const API = "http://localhost:3001";
     const [imgList1, setImgList1] = useState([]);
     const [imgList2, setImgList2] = useState([]);
     const [imgList3, setImgList3] = useState([]);
