@@ -16,7 +16,7 @@ import math
 import asyncio
 
 app = Flask(__name__)
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app, resources={r"/*": {"origins": "*"}})
 CORS(app, resources={r'*': {'origins': 'http://localhost:3000'}})
 
 global pre_file_name
