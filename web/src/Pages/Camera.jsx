@@ -16,13 +16,20 @@ const Camera = () => {
     const webcamRef = useRef(null);
     // 캡쳐
     const capture = useCallback(() => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setPic(imageSrc);
+        try {
+            const imageSrc = webcamRef.current.getScreenshot();
+            setPic(imageSrc);
+        } catch (error) {
+            window.alert("인쇄중 입니다. 잠시만 기다려 주세요.");
+            navigate("/");
+
+        }
+       
     }, [webcamRef]);
     // 캡쳐 상태 관리
     const [isCapture, setIsCapture] = useState(false);
     // 잔여 횟수 관리 (초기값 : 8회)
-    const [remain, setReamin] = useState(4);
+    const [remain, setReamin] = useState(2);
     // 캡쳐 사진 목록
     const [picList, setPicList] = useState([]);
     // 캡쳐 사진

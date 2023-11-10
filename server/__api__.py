@@ -73,6 +73,8 @@ def convert_img():
     print("THEME: ", theme)
     upload_img_list = data['picList']
     print("사진(개) : ", len(upload_img_list))
+
+    # 오류 예상 지점 ---
     if len(upload_img_list) == 0:
         msg["status"] = 201
         msg["msg"] = "업로드 사진 없음"
@@ -83,6 +85,8 @@ def convert_img():
             # 파일 이름 설정 (ex : 타임스탬프.확장자)
             file_name = time_stamp + "_" + str(idx)
             input_img_name.append(file_name)
+
+
             imgdata = base64.b64decode(upload_img_list[idx][22:])
             image = Image.open(io.BytesIO(imgdata))
             upload_img = image.convert("RGB")
@@ -90,9 +94,13 @@ def convert_img():
             upload_img.save('./static/original/' + file_name + file_extension)
             # 임시 이미지 복사
             shutil.copyfile('./static/original/' + file_name + file_extension, './static/inputs/' + file_name + file_extension)
+            # print("!!!오류!!!")
+
         # 변환 및 변환 이미지 저장
         try:
             output_img_name.append(__convert__.convert("face_paint_512_v1", True))
+            # print("!!!오류!!!")
+
             output_img_name.append(__convert__.convert("face_paint_512_v2", True))
             print(output_img_name)
              # 임시 폴더 비우기
@@ -137,6 +145,8 @@ def print_image():
     time_stamp = str(math.floor(time()))
     file_name = time_stamp
     imgdata = base64.b64decode(image[22:])
+    print("프린트!!",imgdata)
+
     image = Image.open(io.BytesIO(imgdata))
     upload_img = image.convert("RGB")
     # 원본 이미지 저장
@@ -190,6 +200,25 @@ def reset_store():
         msg["status"] = 201
         msg["msg"] = "Reset Storage Fail"
     return jsonify(msg)
+
+# 결과 이미지 초기화
+@app.route("/result/reset", methods = ["GET"])
+def reset_result():
+    msg = {
+        "status": 0,
+        "msg": "",
+        "data": None
+    }
+    try:
+        for file in os.scandir("./static/results"):
+            os.remove(file)
+        msg["status"] = 200
+        msg["msg"] = "Reset Storage Success"
+    except:
+        msg["status"] = 201
+        msg["msg"] = "Reset Storage Fail"
+    return jsonify(msg)
+
 
 def get_recent_imgs():
     global img_num

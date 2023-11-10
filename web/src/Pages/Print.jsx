@@ -26,7 +26,7 @@ const Print = () => {
             allowTaint: true,
             useCORS: true,
         }).then((canvas) => {
-            onSaveAs(canvas.toDataURL("imgae/png"));
+            onSaveAs(canvas.toDataURL("image.png"));
         });
     };
     const onSaveAs = async (uri) => {

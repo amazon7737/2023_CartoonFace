@@ -12,17 +12,18 @@ torch.backends.cudnn.deterministic = True
 
 def load_image(image_path, x32=True):
     img = Image.open(image_path).convert("RGB")
-
+    # print("!!!",img.size)
     if x32:
         def to_32s(x):
             return 256 if x < 256 else x - x % 32
         w, h = img.size
-        img = img.crop((w/4*1, 0,w/4*3,h))
+        img = img.crop((w/7*1, 0,w/7*6,h))
         w, h = img.size
-        if h >= 1080 :
-            img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
-        elif h >= 720 :
-            img = img.resize((to_32s(w) // 1.2, to_32s(h) // 1.2))
+        # if h >= 1080 :
+        #     img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
+        # elif h >= 720 :
+        #     img = img.resize((to_32s(w) // 1.2, to_32s(h) // 1.2))
+        img = img.resize((to_32s(w)//2, to_32s(h)//2))
 
     return img
 
@@ -63,7 +64,7 @@ def convert(model, resize):
     parser.add_argument(
         '--device',
         type=str,
-        default='cuda:0',
+        default='cuda',
         # default='mps',
         # default='cpu',
     )
@@ -76,18 +77,21 @@ def convert(model, resize):
     )
     # 이미지 해상도 설정
     parser.add_argument(
-        '--x32',
+        '--x128',
         action="store_true",
         help="Resize images to multiple of 32"
     )
     args = parser.parse_args()
+    print("!!!",args)
     # 변환 기능
     device = args.device
 
     if device == 'cuda:0' : torch.cuda.empty_cache()
-    
+
+
     net = Generator()
     net.load_state_dict(torch.load(args.checkpoint, map_location="cpu"))
+
     net.to(device).eval()
     print(f"model loaded: {args.checkpoint}")
     
@@ -101,8 +105,11 @@ def convert(model, resize):
 
         with torch.no_grad():
             image = to_tensor(image).unsqueeze(0) * 2 - 1
-            out = net(image.to(device), args.upsample_align).cpu()
-            # out = net(image.to(device), args.upsample_align).cuda()
+            # out = net(image.to(device), args.upsample_align).cpu()
+
+            out = net(image.to(device), args.upsample_align)
+            print("변환중~")
+
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
         # 변환 이미지 저장
