@@ -98,10 +98,12 @@ def convert_img():
 
         # 변환 및 변환 이미지 저장
         try:
-            output_img_name.append(__convert__.convert("face_paint_512_v1", True))
+            output_img_name.append(__convert__.convert("face_paint_512_v1", False))
+            # output_img_name.append(__convert__.convert("arcane", False))
             # print("!!!오류!!!")
 
-            output_img_name.append(__convert__.convert("face_paint_512_v2", True))
+            output_img_name.append(__convert__.convert("face_paint_512_v2", False))
+            # output_img_name.append(__convert__.convert("arcane", False))
             print(output_img_name)
              # 임시 폴더 비우기
             for file in os.scandir("./static/inputs"):

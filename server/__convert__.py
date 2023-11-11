@@ -13,17 +13,17 @@ torch.backends.cudnn.deterministic = True
 def load_image(image_path, x32=True):
     img = Image.open(image_path).convert("RGB")
     # print("!!!",img.size)
-    # if x32:
-    #     def to_32s(x):
-    #         return 256 if x < 256 else x - x % 32
-    #     w, h = img.size
-    #     img = img.crop((w/7*1, 0,w/7*6,h))
-    #     w, h = img.size
-    #     # if h >= 1080 :
-    #     #     img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
-    #     # elif h >= 720 :
-    #     #     img = img.resize((to_32s(w) // 1.2, to_32s(h) // 1.2))
-    #     img = img.resize((to_32s(w)//2, to_32s(h)//2))
+    if x32:
+        def to_32s(x):
+            return 256 if x < 256 else x - x % 32
+        w, h = img.size
+        img = img.crop((w/7*1, 0,w/7*6,h))
+        w, h = img.size
+        # if h >= 1080 :
+        #     img = img.resize((to_32s(w) // 3, to_32s(h) // 3))
+        # elif h >= 720 :
+        #     img = img.resize((to_32s(w) // 1.2, to_32s(h) // 1.2))
+        img = img.resize((to_32s(w)//2, to_32s(h)//2))
 
     return img
 
@@ -36,7 +36,7 @@ def convert(model, resize):
         model_name = 2
     elif model == "celeba_distill":
         model_name = 3
-    elif model == "paprika":
+    elif model == "arcane":
         model_name = 4
     else:
         model_name = 5
@@ -64,8 +64,8 @@ def convert(model, resize):
     parser.add_argument(
         '--device',
         type=str,
-        # default='cuda',
-        default='mps',
+        default='cuda',
+        # default='mps',
         # default='cpu',
     )
     # 이미지 해상도 업샘플링 설정
@@ -86,7 +86,7 @@ def convert(model, resize):
     # 변환 기능
     device = args.device
 
-    if device == 'cuda:0' : torch.cuda.empty_cache()
+    # if device == 'cuda:0' : torch.cuda.empty_cache()
 
 
     net = Generator()

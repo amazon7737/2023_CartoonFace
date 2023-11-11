@@ -14,6 +14,7 @@
 }
 
 #convert .title {
+    margin-top: 200px;
     margin-bottom: 12px;
     font-size: 120px;
     font-weight: 700;
@@ -21,12 +22,12 @@
 }
 
 #convert .subTitle {
+    flex: 1;
     font-size: 48px;
     font-weight: 400;
     color: var(--COL-WHITE);
 }
 
 #convert .buttonWrap {
-    position: fixed;
-    bottom: 220px
+    margin-bottom: 120px;
 }
