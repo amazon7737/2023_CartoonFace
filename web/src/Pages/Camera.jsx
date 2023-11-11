@@ -22,14 +22,12 @@ const Camera = () => {
         } catch (error) {
             window.alert("인쇄중 입니다. 잠시만 기다려 주세요.");
             navigate("/");
-
         }
-       
     }, [webcamRef]);
     // 캡쳐 상태 관리
     const [isCapture, setIsCapture] = useState(false);
     // 잔여 횟수 관리 (초기값 : 8회)
-    const [remain, setReamin] = useState(2);
+    const [remain, setReamin] = useState(4);
     // 캡쳐 사진 목록
     const [picList, setPicList] = useState([]);
     // 캡쳐 사진
@@ -64,7 +62,7 @@ const Camera = () => {
             setTimeout(() => {
                 capture();
                 setIsCapture(false);
-            }, 5100);
+            }, 5000);
         } else {
             if (remain > 1) {
                 setIsCapture(true);
@@ -75,6 +73,18 @@ const Camera = () => {
     return (
         <>
             <div id="camera">
+                <div className="background">
+                    <Webcam
+                        ref={webcamRef}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            transform: "rotateY(180deg)",
+                            objectFit: "cover",
+                        }}
+                        screenshotFormat="image/jpg"
+                    />
+                </div>
                 <Webcam
                     ref={webcamRef}
                     style={{

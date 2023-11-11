@@ -34,7 +34,7 @@ const Print = () => {
             img: uri,
         });
         console.log(response);
-        navigate("/fin")
+        navigate("/fin");
     };
     //API서버 주소
     const API = "http://localhost:3001";
@@ -77,7 +77,7 @@ const Print = () => {
                             <img
                                 className="pic"
                                 src={API + picList[3]}
-                                alt=""
+                                alt="4번사진"
                                 srcset=""
                                 crossOrigin="anonymous"
                             />

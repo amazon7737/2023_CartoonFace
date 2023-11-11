@@ -10,6 +10,8 @@ const Slide = () => {
     const [imgList1, setImgList1] = useState([]);
     const [imgList2, setImgList2] = useState([]);
     const [imgList3, setImgList3] = useState([]);
+    const [imgList4, setImgList4] = useState([]);
+    const [imgList5, setImgList5] = useState([]);
     const getPic = async () => {
         const response = await axios.get(API + "/recent");
         console.log(response.data.data.convert);
@@ -23,6 +25,12 @@ const Slide = () => {
         await shuffle(temp);
         console.log(temp);
         setImgList3(temp);
+        await shuffle(temp);
+        console.log(temp);
+        setImgList4(temp);
+        await shuffle(temp);
+        console.log(temp);
+        setImgList5(temp);
     };
     const shuffle = async (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -57,6 +65,22 @@ const Slide = () => {
                     <img src={img} alt="" />
                 ))}
                 {imgList3.map((img, idx) => (
+                    <img src={img} alt="" />
+                ))}
+            </div>
+            <div className="col">
+                {imgList4.map((img, idx) => (
+                    <img src={img} alt="" />
+                ))}
+                {imgList4.map((img, idx) => (
+                    <img src={img} alt="" />
+                ))}
+            </div>
+            <div className="col">
+                {imgList5.map((img, idx) => (
+                    <img src={img} alt="" />
+                ))}
+                {imgList5.map((img, idx) => (
                     <img src={img} alt="" />
                 ))}
             </div>

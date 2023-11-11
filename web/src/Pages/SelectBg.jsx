@@ -77,8 +77,6 @@ const SelectBG = () => {
                                 <></>
                             )}
                         </div>
-                    </div>
-                    <div className="row">
                         <div
                             className={
                                 selected === 3

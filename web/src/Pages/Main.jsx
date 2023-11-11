@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Language from "../Components/Language";
 import "./Styles/Main.css";
 import { LargeBtn } from "../Components/Button";
 import Slide from "../Components/Slide";
@@ -15,6 +14,7 @@ const Main = () => {
             <Slide />
             <div className="title">Cartoon Face</div>
             <div className="subTitle">만화주인공같은 내얼굴</div>
+            <div className="space"></div>
             <div className="buttonWrap">
                 <LargeBtn text={"화면을 클릭해주세요."} />
             </div>
